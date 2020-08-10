@@ -10,12 +10,13 @@
       <div>
         <input v-model="inputName" />
         <button v-on:click="insertVal()">추가</button>
+
       </div>
       <div>
         <table>
           <tbody>
             <tr><td>이름</td></tr>
-            <tr :class="crossColor" v-for="name in names">
+            <tr v-for="name in names">
               <td>{{ name.text }}</td>
             </tr>
           </tbody>
@@ -40,10 +41,10 @@
       <div>
         <table>
           <thead>
-            <th>이름</th>
-            <th>부서</th>
-            <th>직급</th>
-            <th>연락처</th>
+          <th>이름</th>
+          <th>부서</th>
+          <th>직급</th>
+          <th>연락처</th>
           </thead>
           <tbody>
             <tr>
@@ -52,13 +53,12 @@
               <td>사원</td>
               <td>3333</td>
             </tr>
-            <tr is="employee-template" :class="info"
-                v-for="emp in employeeList"
-                v-bind:name="emp.obj.name"
-                v-bind:department="emp.obj.department"
-                v-bind:rank="emp.obj.rank"
-                v-bind:call="emp.obj.call"
-            ></tr>
+            <tr :class="info" v-for="emp in employeeList">
+              <td>{{ emp.obj.name }}</td>
+              <td>{{ emp.obj.department }}</td>
+              <td>{{ emp.obj.rank }}</td>
+              <td>{{ emp.obj.call }}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -77,8 +77,7 @@
                 rank: '',
                 call: ''
             },
-            employeeList: [],
-            isActive: true,
+            employeeList: []
         },
         methods: {
             insertVal: function () {
@@ -108,55 +107,22 @@
 
                 return rtnVal
             },
-            info: function () {
+            info: function (e) {
 
-                //console.log(e)
+                console.log(e)
                 //if (event._isVue == true)
 
                 return "newInfo : true"
 
                 //return isNew == true ? (newInfo : true) : (newInfo : false)
-            },
-            crossColor: function() {
-
-              if (this.isActive == true)
-              {
-                console.log(this.isActive)
-                this.isActive = false
-                return "activeColor : true"
-              } else
-              {
-                console.log(this.isActive)
-                this.isActive = true
-                return "activeColor : false"
-              }
-
             }
         }
-    })
-
-    Vue.component('employee-template', {
-      template: '\
-            <tr>\
-              <td>{{ name }}</td>\
-              <td>{{ department }}</td>\
-              <td>{{ rank }}</td>\
-              <td>{{ call }}</td>\
-            </tr>\
-          ',
-      props: ['name','department','rank','call']
     })
   </script>
 
   <style>
-    .newInfo 
-    {
+    .newInfo {
       background-color: red
-    }
-
-    .activeColor 
-    {
-      background-color: blue
     }
   </style>
 </body>
