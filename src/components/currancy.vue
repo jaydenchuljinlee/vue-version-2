@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <span>test 페이지</span>
+  <div>
+    <span>currancy 페이지</span>
   </div>
 </template>
 
