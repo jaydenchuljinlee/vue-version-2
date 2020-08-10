@@ -1,27 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Test from '@/components/test'
-import Currency from '@/components/currancy'
-
+import BoardList from '@/components/board/BoardList'
+import BoardView from '@/components/board/BoardView'
+import BoardWriter from '@/components/board/BoardWriter'
+/* eslint-disable no-new */
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'BoardList',
+      component: BoardList
     },
     {
-      path: '/test',
-      name: 'Test',
-      component: Test
+      path: '/view/:seq',
+      name: 'BoardView',
+      component: BoardView
     },
     {
-      path: '/currancy',
-      name: 'Currancy',
-      component: Currency
+      path: '/writer',
+      name: 'BoardWriter',
+      component: BoardWriter
     }
   ]
 })
