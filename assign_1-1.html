@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="assign_1">
+      <div>
+        <input v-model="inputName" />
+        <button v-on:click="insertVal()">추가</button>
+      </div>
+      <div>
+        <table class="tb">
+          <tbody>
+            <tr><td>이름</td></tr>
+              <!-- v-for를 통해 names에 담긴 이름을 화면에 추가해줬고
+                   v-if를 통해 추가될 때마다 색이 교차하게 만들었습니다.
+                  -->
+            <tr v-for="(name,index) in names">
+                <td v-if="index%2 == 0" class="activeColor">{{ name.text }}</td>
+                <td v-else>{{ name.text }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        {{ namesList }}
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    var app = new Vue(
+    {
+        el: '#app',
+        data:
+        {
+            inputName: '',
+            names: [],
+        },
+        methods://메서드를 통해 클릭되면 배열에 추가하게 만들었습니다.
+        {
+            insertVal: function ()
+            {
+
+                let self = this
+
+                self.names.push({ text: self.inputName })
+            }
+        },
+        computed:
+        {
+            namesList: function () 
+            {
+
+                let self = this
+
+                var rtnVal  = "",
+                    cnt     = 0
+
+                //배열에 담긴 이름들을 화면에 모두 출력하기 위해 forEach문을 돌렸습니다.
+                //마지막 이름 뒤에는 슬래시가 안붙게 만들기 위해 cnt라는 변수를 사용했습니다.
+                self.names.forEach((name) =>
+                {
+                    
+                    rtnVal += name.text
+
+                    if (cnt != self.names.length - 1)
+                    {
+                        rtnVal += " / "
+                    }
+
+                    cnt++
+                })
+
+                return rtnVal
+            }
+        }
+    })
+  </script>
+
+  <style>
+
+      .activeColor 
+      {
+          background-color: #00bcd4b5
+      }
+
+    .tb tr td
+    {
+        text-align: center;
+        width: 300px;
+        border: 1px solid black
+    }
+
+  </style>
+</body>
+</html>

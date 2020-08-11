@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="assign_2">
+      <div>
+        <span>* 이름</span>
+        <input v-model="employee.name" />
+        <span>* 부서</span>
+        <input v-model="employee.department" />
+        <span>* 직급</span>
+        <input v-model="employee.rank" />
+        <span>* 연락처</span>
+        <input v-model="employee.call" />
+        <button v-on:click="insertEmployee()">추가</button>
+      </div>
+      <div>
+        <table class="tb">
+          <thead>
+            <th>이름</th>
+            <th>부서</th>
+            <th>직급</th>
+            <th>연락처</th>
+          </thead>
+            <tbody>
+                <tr>
+                    <td>홍길동</td>
+                    <td>망고</td>
+                    <td>사원</td>
+                    <td>010-8977-7453</td>
+                </tr>
+                <tr>
+                    <td>고길동</td>
+                    <td>두리안</td>
+                    <td>주임</td>
+                    <td>010-2232-1922</td>
+                </tr>
+                <tr>
+                    <td>우츠동</td>
+                    <td>애플망고</td>
+                    <td>대리</td>
+                    <td>010-5464-2234</td>
+                </tr>
+                <tr is="employee-template" :class="info"
+                    v-for="emp in employeeList"
+                    v-bind:employee="emp"></tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var app = new Vue(
+    {
+        el: '#app',
+        data: {
+            employee: {//컴포넌트로 전달해주기 위한 객체 타입으로 data를 선언했습니다.
+                name: '',
+                department: '',
+                rank: '',
+                call: ''
+            },
+            employeeList: [],//추가된 직원들을 넣어주기 위해 만들었습니다.
+            isNew: true,//새로 추가된 직원인지를 판단하기 위해 만들었습니다.
+        },
+        methods: {//추가가 될 때, 배열에 직원 객체를 추가해주기 위해 메서드를 만들었습니다.
+            insertEmployee: function () {
+
+                var obj = {}
+
+                obj.name        = this.employee.name
+                obj.department  = this.employee.department
+                obj.rank        = this.employee.rank
+                obj.call        = this.employee.call
+
+                this.employeeList.push({ obj })
+
+            }
+        },
+        computed://새로 추가된 직원 row에 style을 입히기 위해 사용했습니다.
+        {
+            info: function ()
+            {
+
+                let self = this
+
+                if (self.isNew == true)
+                {
+                    self.isNew = false
+
+                    return "newInfo : true"
+                } else
+                {
+                    self.isNew = true
+
+                    return "newInfo : false"
+                }
+            }
+        }
+    })
+
+    //새로 추가된 직원 row를 컴포넌트 형식으로 추가해주기 위한 컴포넌트 객체를 만들었습니다.
+    Vue.component('employee-template',
+    {
+      template: '\
+            <tr>\
+              <td>{{ employee.obj.name }}</td>\
+              <td>{{ employee.obj.department }}</td>\
+              <td>{{ employee.obj.rank }}</td>\
+              <td>{{ employee.obj.call }}</td>\
+            </tr>\
+          ',
+        props: ['employee']//위에서 선언한 직원 객체를 이곳을 통해 전달하도록 만들었습니다.
+    })
+  </script>
+
+  <style>
+      .newInfo {
+          background-color: #8bc34ad1
+      }
+
+      .tb tr td {
+          text-align: center;
+          width: 300px;
+          border: 1px solid #00bcd4ba
+      }
+  </style>
+</body>
+</html>

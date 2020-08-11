@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="assign_2">
+            <div>
+                <button v-on:click="createRandomNumber()">난수 생성</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        /** import를 했을 때 사용하려던 코드입니다!
+        import { avg, calculate } from './module_export'
+
+        let self = this
+        var arr = new Array()
+
+        var app = new Vue(
+            {
+                el: '#app',
+                methods:
+                {
+                    createRandomNumber: () => {
+
+                        //랜덤값 생성
+                        for (var i = 0; i < 10; i++) {
+                            self.arr.push(Math.floor(Math.random() * 10))
+                        }
+
+                        const sum_val = calculate('+')//합계
+                        const avg_val = avg(sum_val)//평균
+                        const mul_val = calculate('*')//곱셈
+
+                        //구조 분해 할당
+                        let obj = { a: sum_val, b: avg_val, c: mul_val }
+
+                        //obj에 할당한 결과값들을 다시 할당해줍니다.
+                        let { a: first, b: second, c: third } = obj
+
+                        //전역에 let으로 선언한 this로부터 배열을 받아옵니다.
+                        console.log("배열 : " + self.arr)
+                        //두 번째 구조 분해 할당해준 변수들을 호출합니다.
+                        console.log("덧셈 : " + first)
+                        console.log("평균 : " + second)
+                        console.log("곱셈 : " + third)
+
+                        //템플릿 리터럴을 사용한 문자열 호출입니다.
+                        let str = `배열은 ${self.arr} 이고, 합계는 ${first} 이며, 평균은 ${second} 이고, 곱셈은 ${third} 입니다`
+                        console.log(str)
+                        //재클릭 했을 때를 방지해줍니다.
+                        self.arr = []
+                    }
+                }
+            })
+        **/
+
+        let self = this
+        var arr = new Array()
+
+        //평균
+        let avg = (sum_val) => {
+            const avg_parent = arr.length
+
+            return (sum_val / avg_parent)
+        }
+
+        //연산자에 따라 계산 결과가 다르게 나오도록 만들었습니다
+        let calculate = (op) => {
+            var rtnVal = 0
+
+            switch (op) {
+                case '+'://연산이 더하기면 합계
+                    self.arr.forEach((num) => { rtnVal += num })
+                    break
+                case '*'://연산이 곱셈이면 곱하기
+                    rtnVal++
+                    self.arr.forEach((num) => { rtnVal *= num })
+                    break
+            }
+
+            return rtnVal
+        }
+
+        var app = new Vue(
+            {
+                el: '#app',
+                methods:
+                {
+                    createRandomNumber: () => {
+
+                        //랜덤값 생성
+                        for (var i = 0; i < 10; i++) {
+                            self.arr.push(Math.floor(Math.random() * 10))
+                        }
+
+                        const sum_val = calculate('+')//합계
+                        const avg_val = avg(sum_val)//평균
+                        const mul_val = calculate('*')//곱셈
+
+                        //구조 분해 할당
+                        let obj = { a: sum_val, b: avg_val, c: mul_val }
+
+                        //obj에 할당한 결과값들을 다시 할당해줍니다.
+                        let { a: first, b: second, c: third } = obj
+
+                        //전역에 let으로 선언한 this로부터 배열을 받아옵니다.
+                        console.log("배열 : " + self.arr)
+                        //두 번째 구조 분해 할당해준 변수들을 호출합니다.
+                        console.log("덧셈 : " + first)
+                        console.log("평균 : " + second)
+                        console.log("곱셈 : " + third)
+
+                        //템플릿 리터럴을 사용한 문자열 호출입니다.
+                        let str = `배열은 ${self.arr} 이고, 합계는 ${first} 이며, 평균은 ${second} 이고, 곱셈은 ${third} 입니다`
+                        console.log(str)
+                        //재클릭 했을 때를 방지해줍니다.
+                        self.arr = []
+                    }
+                }
+            })
+    </script>
+
+    <style>
+        .newInfo {
+            background-color: red
+        }
+    </style>
+</body>
+
+
+</html>
